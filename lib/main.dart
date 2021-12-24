@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-
 import 'indexedStack.dart';
-
 
 void main() => runApp(ScreenWidget());
 
@@ -19,7 +17,6 @@ class ScreenWidget extends StatelessWidget {
         // body: StackWidget(),
         // body: PositionedWidget(),
         body: IndexedStackWidget(),
-
       ),
     );
   }

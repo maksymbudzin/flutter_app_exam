@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'global.dart' as global;
+
+import 'SecondRoute.dart';
 
 Random random = new Random();
 
@@ -9,30 +12,38 @@ class IndexedStackWidget extends StatefulWidget {
 }
 
 class _IndexedStackWidgetState extends State<IndexedStackWidget> {
-  int _index = 0;
-  double size = 100.0;
+  int _index = 2;
+  double firstRand = 0.0;
+  double secondRand = 0.0;
 
-  void _switchEncrease() {
-    if (_index != 2) {
-      setState(() {
-        _index++;
-        size += random.nextInt(30) ;
-      });
-    } else if (size >= 700 ){
-      setState(() {
+  void _encrease() {
+    setState(() {
+      firstRand += random.nextInt(20) + 10;
+
+      global.size += firstRand;
+
+      if (global.size > 700) {
+        global.size = 700;
+      }
+      if (global.size > 395 && global.size < 405) {
         _index = 0;
-        size = 100;
-      });
-    }
+      }
+      global.secondSize -= firstRand;
+    });
   }
 
-  void _switchReduce() {
-    if (_index != 2) {
-      setState(() {
-        _index++;
-        size -= random.nextInt(30) ;
-      });
-    } 
+  void _reduce() {
+    setState(() {
+      secondRand += random.nextInt(20) + 10;
+      global.size -= secondRand;
+      if (global.size < 100) {
+        global.size = 100;
+      }
+      if (global.size > 395 && global.size < 405) {
+        _index = 0;
+      }
+      global.secondSize += secondRand;
+    });
   }
 
   Widget build(BuildContext context) {
@@ -44,23 +55,36 @@ class _IndexedStackWidgetState extends State<IndexedStackWidget> {
           IndexedStack(
             index: _index,
             children: [
-              AnimatedSquare(size, Colors.redAccent),
-              AnimatedSquare(size, Colors.orangeAccent),
-              AnimatedSquare(size, Colors.greenAccent),
+              AnimatedSquare(global.size, Colors.redAccent),
+              AnimatedSquare(global.size, Colors.orangeAccent),
+              AnimatedSquare(global.size, Colors.greenAccent),
             ],
           ),
-          FloatingActionButton(
-            child: new Icon(Icons.add),
-            onPressed: () {
-              _switchEncrease();
-            },
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 300.0, 0.0, 0.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton(
+                    child: new Icon(Icons.remove),
+                    onPressed: () {
+                      _reduce();
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 275.0,
+                ),
+                FloatingActionButton(
+                  child: new Icon(Icons.add),
+                  onPressed: () {
+                    _encrease();
+                  },
+                )
+              ],
+            ),
           ),
-          FloatingActionButton(
-            child: new Icon(Icons.remove),
-            onPressed: () {
-               _switchReduce();
-            },
-          )
         ],
       ),
     );
@@ -75,14 +99,29 @@ class AnimatedSquare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      child: Image.network(
-          'https://logowik.com/content/uploads/images/flutter5786.jpg'),
-      curve: Curves.easeInBack,
-      duration: Duration(seconds: 1),
-      width: size,
-      height: size,
-      color: color,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SecondRoute()),
+        );
+      },
+      child: AnimatedContainer(
+        child: new Image.network(
+            'https://script.ws/public/storage/users/1607946988.png'),
+        curve: Curves.easeInBack,
+        duration: Duration(seconds: 1),
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(180.0),
+              bottomRight: Radius.circular(180.0),
+              topLeft: Radius.circular(180.0),
+              bottomLeft: Radius.circular(180.0)),
+          color: color,
+        ),
+      ),
     );
   }
 }
