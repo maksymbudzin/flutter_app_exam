@@ -47,45 +47,50 @@ class _IndexedStackWidgetState extends State<IndexedStackWidget> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IndexedStack(
-            index: _index,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Center(
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedSquare(global.size, Colors.redAccent),
-              AnimatedSquare(global.size, Colors.orangeAccent),
-              AnimatedSquare(global.size, Colors.greenAccent),
+              IndexedStack(
+                index: _index,
+                children: [
+                  AnimatedSquare(global.size, Colors.redAccent),
+                  AnimatedSquare(global.size, Colors.orangeAccent),
+                  AnimatedSquare(global.size, Colors.greenAccent),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 300.0, 0.0, 0.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FloatingActionButton(
+                        child: new Icon(Icons.remove),
+                        onPressed: () {
+                          _reduce();
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 275.0,
+                    ),
+                    FloatingActionButton(
+                      child: new Icon(Icons.add),
+                      onPressed: () {
+                        _encrease();
+                      },
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 300.0, 0.0, 0.0),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FloatingActionButton(
-                    child: new Icon(Icons.remove),
-                    onPressed: () {
-                      _reduce();
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 275.0,
-                ),
-                FloatingActionButton(
-                  child: new Icon(Icons.add),
-                  onPressed: () {
-                    _encrease();
-                  },
-                )
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
