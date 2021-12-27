@@ -27,7 +27,7 @@ class _SecondRouteState extends State<SecondRoute> {
       if (global.secondSize > 700) {
         global.secondSize = 700;
       }
-      if (global.size > 395 && global.size < 405) {
+      if (global.size > 345 && global.size < 355) {
         _index = 0;
       }
       global.size -= firstRand;
@@ -41,7 +41,7 @@ class _SecondRouteState extends State<SecondRoute> {
       if (global.secondSize < 100) {
         global.secondSize = 100;
       }
-      if (global.size > 395 && global.size < 405) {
+      if (global.size > 345 && global.size < 355) {
         _index = 0;
       }
       global.size += secondRand;

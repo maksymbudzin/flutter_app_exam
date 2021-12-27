@@ -25,7 +25,7 @@ class _IndexedStackWidgetState extends State<IndexedStackWidget> {
       if (global.size > 700) {
         global.size = 700;
       }
-      if (global.size > 395 && global.size < 405) {
+      if (global.size > 345 && global.size < 355) {
         _index = 0;
       }
       global.secondSize -= firstRand;
@@ -39,7 +39,7 @@ class _IndexedStackWidgetState extends State<IndexedStackWidget> {
       if (global.size < 100) {
         global.size = 100;
       }
-      if (global.size > 395 && global.size < 405) {
+      if (global.size > 345 && global.size < 355) {
         _index = 0;
       }
       global.secondSize += secondRand;
